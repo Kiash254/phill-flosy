@@ -1,4 +1,8 @@
 from django.db import models
+# imagekit
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
+
 
 Places_lands=(
 ('thika' ,'thika'),
@@ -18,6 +22,13 @@ class  Products(models.Model):
     price=models.CharField(max_length=100)
     description=models.TextField(max_length=100)
     image=models.ImageField(null=True,blank=True)
+    image_thumbnail = ProcessedImageField(
+        upload_to='leaders/thumbnails/',
+        processors=[ResizeToFill(200, 200)],
+        format='JPEG',
+        options={'quality': 60},
+        blank=True,
+    )
     def __str__(self):
         return self.name
 
@@ -28,12 +39,20 @@ class  Products(models.Model):
         except:
             url=''
         return url
+        
 
 class Laundry(models.Model):
     name=models.CharField(max_length=100)
     price=models.CharField(max_length=100)
     description=models.TextField(max_length=100)
     image=models.ImageField(null=True,blank=True)
+    image_thumbnail = ProcessedImageField(
+        upload_to='leaders/thumbnails/',
+        processors=[ResizeToFill(200, 200)],
+        format='JPEG',
+        options={'quality': 60},
+        blank=True,
+    )
     def __str__(self):
         return self.name
     @property
@@ -49,6 +68,13 @@ class Land(models.Model):
     image=models.ImageField(null=True,blank=True)
     price=models.CharField(max_length=100)
     place=models.CharField(max_length=100,null=True,blank=True,choices=Places_lands)
+    image_thumbnail = ProcessedImageField(
+        upload_to='leaders/thumbnails/',
+        processors=[ResizeToFill(200, 200)],
+        format='JPEG',
+        options={'quality': 60},
+        blank=True,
+    )
     def __str__(self):
         return self.size
     @property
